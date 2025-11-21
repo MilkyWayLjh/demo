@@ -1,5 +1,5 @@
 xunjian:
-docker logs capella-ros-deep_learning-1 -fn 1000 | grep inspection
+docker logs capella-ros-deep_learning-1 -ftn 1000 | grep inspection
 ros2 topic echo /camera2/color/image_raw
 self.max_ray_history = 7
 /capella/lib/python3.10/site-packages/capella_inspection_node/inspection.py
@@ -8,7 +8,6 @@ xunsao and duojixietong  qiehuan:
 cp /map/xun_sao/cleaner_2.yaml share/capella_ros_launcher/param/cleaner_2.yaml
 cp /map/xun_sao/navigate_through_poses_w_replanning_and_recovery.xml  share/capella_ros_launcher/behavior_trees/navigate_through_poses_w_replanning_and_recovery.xml
 docker restart capella-ros-core-1
-
 
 
 logwatch：（进cmd，不要powershell）
@@ -23,3 +22,38 @@ logwatch -s http://192.168.200.253:20080 logs agent -ftn 500
 
 zhangyang
 tjdx9876
+
+容器日志查看：
+docker logs -ftn xxx
+
+本地更新部署测试镜像拉取：
+在compose文件中更改相关镜像地址，
+docker compose pull xxx，
+docker compose up xxx
+
+面板无权限无法启动：
+export DISPLAY=:0&&xhost +local:docker
+docker compose up panel -d
+
+面板使用发布后的程序：
+注释compose文件中panel：~/panel:/capella
+再重新up
+
+面板使用手动传的程序：
+不注释compose文件中panel：~/panel:/capella
+再重新up
+
+避车演示程序：
+cd Desktop
+logwatch ssh tj2022@mk10
+docker exec -it capella-ros-core-1 bash
+source setup.bash
+
+刷盘滚刷转速agent查看：
+logwatch ssh tj2022@8gt -c "docker exec -it capella-ros-agent-1 bash -c 'source /ros/setup.bash && ros2 topic echo /side_motor_cmd'"
+或
+logwatch ssh tj2022@8gt
+docker exec -it capella-ros-agent-1 bash
+source /ros/setup.bash
+ros2 topic echo /side_motor_cmd
+
