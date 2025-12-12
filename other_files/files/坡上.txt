@@ -1,0 +1,21 @@
+ros2 topic pub --once /car_information capella_ros_msg/msg/CarDetectArray "{
+  results: [
+    {
+      pose: {
+        header: {stamp: {sec: 1731500000, nanosec: 0}, frame_id: 'map'},
+        pose: {
+          position: {x: -108.611049933303, y: -6.25944581832306, z: 0.0},
+          orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+        }
+      },
+      size: {x: 5, y: 2.6, z: 0.0},
+      speed: {
+        header: {stamp: {sec: 1731500000, nanosec: 0}, frame_id: 'base_link'},
+        twist: {
+          linear: {x: 3.2, y: 0.1, z: 0.0},
+          angular: {x: 0.0, y: 0.0, z: 0.0}
+        }
+      }
+    }
+  ]
+}"
